@@ -14,8 +14,8 @@ env:
 jobs:
   build:
 
-    name: build-windows-latest
-    runs-on: windows-latest
+    name: build-windows-2019
+    runs-on: windows-2019
 
     steps:
     - uses: actions/checkout@v3
