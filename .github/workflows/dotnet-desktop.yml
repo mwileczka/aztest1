@@ -26,3 +26,9 @@ jobs:
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: msbuild aztest1.sln /t:Restore /p:Configuration=Debug
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Console App 1
+        path: ConsoleApp1\bin\Debug\ConsoleApp1.exe
