@@ -4,9 +4,6 @@ on:
   push:
   pull_request:
     branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
 
 env:
   DOTNET_VERSION: '4.7.2'
@@ -18,8 +15,11 @@ jobs:
     runs-on: windows-2019
 
     steps:
-    - name: Install dependencies
-      run: dotnet restore ./ConsoleApp1/ConsoleApp1.csproj
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore ./ConsoleApp1/ConsoleApp1.csproj
+    
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild aztest1.sln /t:Restore /p:Configuration=Debug
